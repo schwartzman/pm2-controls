@@ -61,9 +61,8 @@ body {
 }
 
 .inner {
+	max-width: 75%;
 	margin: 100px auto;
-	min-width: 600px;
-	max-width: 50%;
     border-top: solid 1px $grey30;
 	.interface {
 		font-family: 'Roboto', sans-serif;
@@ -95,6 +94,12 @@ body {
 		font-family: 'Roboto Mono', monospace;
 		font-weight: 300;
 		color: $grey70;
+	}
+}
+
+@media only screen and (min-width: 480px) {
+	.inner {
+		max-width: 50%;
 	}
 }
 

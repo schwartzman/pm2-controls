@@ -9,8 +9,15 @@
     "express": "^4.14.0",
     "pm2": "github:unitech/pm2#development"
   },
+  "devDependencies": {
+    "node-sass": "latest",
+    "autoprefixer": "latest",
+    "postcss-cli": "latest"
+  },
   "scripts": {
     "start": "node --use_strict index.js",
-    "startpm2": "pm2 start pm2.json"
+    "startpm2": "pm2 start pm2.json",
+    "sass": "node-sass --output-style compressed public/scss/main.scss public/css/main.css",
+    "postsass": "postcss --use autoprefixer -d public/css/ public/css/main.css"
   }
 }
