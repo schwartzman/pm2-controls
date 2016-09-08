@@ -1,10 +1,10 @@
 {
-	"name"            : "thor-controls",
+	"name"            : "asgard-controls",
 	"script"          : "server.js",
 	"watch"           : true,
 	"ignore_watch"    : "_logs",
-	"error_file"      : "_logs/thor-controls-err.log",
-	"out_file"        : "_logs/thor-controls-out.log",
+	"error_file"      : "_logs/asgard-controls-err.log",
+	"out_file"        : "_logs/asgard-controls-out.log",
 	"merge_logs"      : true,
 	"log_date_format" : "YYYY-MM-DD HH:mm Z"
 }
