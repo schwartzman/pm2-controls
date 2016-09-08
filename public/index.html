@@ -3,9 +3,10 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Thor Controls</title>
+        <title>Asgard Controls</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="favicon.ico?v=2" type="image/x-icon">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:300|Roboto:300">
         <link rel="stylesheet" href="css/normalize.min.css">
@@ -15,8 +16,26 @@
         <div class="inner">
             <div class="interface">
                 <h1>Asgard</h1>
-                <button class="restart" title="restart"><i class="fa fa-fw fa-refresh"></i></button>
-                <button class="stop" title="stop"><i class="fa fa-fw fa-stop"></i></button>
+                <div class="module">
+                    <h2>Thor</h2>
+                    <button class="restart" title="restart" rel="thor"><i class="fa fa-fw fa-refresh"></i></button>
+                    <button class="stop" title="stop" rel="thor"><i class="fa fa-fw fa-stop"></i></button>
+                </div>
+                <div class="module first">
+                    <h2>Huginn</h2>
+                    <button class="restart" title="restart" rel="huginn"><i class="fa fa-fw fa-refresh"></i></button>
+                    <button class="stop" title="stop" rel="huginn"><i class="fa fa-fw fa-stop"></i></button>
+                </div>
+                <div class="module">
+                    <h2>Muninn</h2>
+                    <button class="restart" title="restart" rel="muninn"><i class="fa fa-fw fa-refresh"></i></button>
+                    <button class="stop" title="stop" rel="muninn"><i class="fa fa-fw fa-stop"></i></button>
+                </div>
+                <div class="module">
+                    <h2>Bran</h2>
+                    <button class="restart" title="restart" rel="bran"><i class="fa fa-fw fa-refresh"></i></button>
+                    <button class="stop" title="stop" rel="bran"><i class="fa fa-fw fa-stop"></i></button>
+                </div>
             </div>
             <div class="output" id="output"></div>
         </div>

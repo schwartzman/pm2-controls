@@ -3,9 +3,9 @@ $('button').click(function(){
 })
 
 $('button.stop').click(function(){
-	$('#output').load('/stop')
+	$('#output').load('/stop/'+$(this).attr('rel'))
 })
 
 $('button.restart').click(function(){
-	$('#output').load('/restart')
+	$('#output').load('/restart/'+$(this).attr('rel'))
 })

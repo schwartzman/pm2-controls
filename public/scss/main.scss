@@ -62,13 +62,24 @@ body {
 
 .inner {
 	max-width: 75%;
-	margin: 100px auto;
-    border-top: solid 1px $grey30;
+	margin: 80px auto 100px;
 	.interface {
 		font-family: 'Roboto', sans-serif;
 		margin-bottom: 50px;
+		.module {
+			float: left;
+			border: solid 1px $grey30;
+			padding: 20px 25px 25px;
+			margin: 0 20px 20px 0;
+			&.first {
+				clear: left;
+			}
+		}
 		h1 {
 			font-weight: 100;
+		}
+		h2 {
+		    margin-top: 0;
 		}
 		button {
 			$butt-size: 70px;
@@ -94,6 +105,7 @@ body {
 		font-family: 'Roboto Mono', monospace;
 		font-weight: 300;
 		color: $grey70;
+		clear: left;
 	}
 }
 
@@ -102,9 +114,6 @@ body {
 		max-width: 50%;
 	}
 }
-
-
-
 
 button {
 	cursor: pointer;

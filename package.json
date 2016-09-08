@@ -7,6 +7,7 @@
   "dependencies": {
     "async": "^2.0.1",
     "express": "^4.14.0",
+    "lodash": "^4.15.0",
     "pm2": "^2.0.7"
   },
   "devDependencies": {
@@ -15,8 +16,8 @@
     "postcss-cli": "latest"
   },
   "scripts": {
-    "start": "node --use_strict index.js",
-    "startpm2": "pm2 start pm2.json",
+    "start": "node --use_strict server.js",
+    "spm2": "pm2 start pm2.json",
     "sass": "node-sass --output-style compressed public/scss/main.scss public/css/main.css",
     "postsass": "postcss --use autoprefixer -d public/css/ public/css/main.css"
   }
