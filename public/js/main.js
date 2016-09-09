@@ -1,15 +1,17 @@
-function modName(context){
-	return $(context).parent().data('module')
+function route(context) {
+	var endpoint = $(context).data('action')
+	var param = $(context).parent().data('module')
+	return '/' + endpoint + '/' + param
 }
 
-$('button').click(function(){
+$('.action').click(function(){
 	$('#output').text('working...')
 })
 
-$('button.stop').click(function(){
-	$('#output').load('/stop/' + modName(this))
+$('button, .button').click(function() {
+	$('#output').load(route(this))
 })
 
-$('button.restart').click(function(){
-	$('#output').load('/restart/' + modName(this))
+$('h1').click(function() {
+	$('#output').html('<a href="https://en.wikipedia.org/wiki/Asgard" target="_blank">Further reading for the inquisitive</a>')
 })

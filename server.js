@@ -9,6 +9,22 @@ function Directive(action, req){
 	this.module = req.params.module
 }
 
+function output(err, result, directive, res) {
+	var msg
+	if (err) {
+		console.warn(err)
+		msg = err
+	} else {
+		msg = (directive.action == 'describe') ? 'status: ' : 'action: '
+		if(_.isEmpty(result)){
+			msg += 'offline'
+		} else {
+			msg += result[0].pm2_env.status
+		}
+	}
+	res.send(_.upperFirst(directive.module) + ' ' + msg)
+}
+
 function pm2Action(directive, res){
 	async.waterfall([
 		function(callback){
@@ -23,9 +39,7 @@ function pm2Action(directive, res){
 		}
 	], function(err, result){
 		pm2.disconnect()
-		if (err) { console.warn(err) }
-		var output = err ? err : result[0].status
-		res.send(_.upperFirst(directive.module) + ' ' + output)
+		output(err, result, directive, res)
 	})
 }
 
@@ -35,6 +49,10 @@ var loggy = function (req, res, next) {
 }
 
 app.use(loggy, express.static('public'))
+
+app.get('/describe/:module', function(req, res){
+	pm2Action(new Directive('describe', req), res)
+})
 
 app.get('/stop/:module', function(req, res){
 	pm2Action(new Directive('stop', req), res)

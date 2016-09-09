@@ -76,7 +76,10 @@ body {
 				clear: left;
 			}
 			&.disabled {
-				color: $grey30;
+				&, & * {
+					cursor: default !important;
+					color: $grey30 !important;
+				}
 				button {
 					border-color: $grey30;
 				}
@@ -87,6 +90,13 @@ body {
 		}
 		h2 {
 		    margin-top: 0;
+		    cursor: pointer;
+		    &:hover {
+				color: #66ff66;
+			}
+			&:active {
+				color: #ffff00;
+			}
 		}
 		button {
 			$butt-size: 70px;
@@ -113,6 +123,13 @@ body {
 		font-weight: 300;
 		color: $grey70;
 		clear: left;
+		a {
+			color: inherit;
+			text-decoration: none;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
 	}
 }
 
