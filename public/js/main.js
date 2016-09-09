@@ -1,7 +1,10 @@
 function route(context) {
-	var endpoint = $(context).data('action')
+	var result = $(context).data('action')
 	var param = $(context).parent().data('module')
-	return '/' + endpoint + '/' + param
+	if (param) {
+		result += '/' + param
+	}
+	return '/' + result
 }
 
 $('[data-action]').click(function(){
@@ -10,8 +13,4 @@ $('[data-action]').click(function(){
 
 $('[data-action]').click(function() {
 	$('#output').load(route(this))
-})
-
-$('h1').click(function() {
-	$('#output').html('<a href="https://en.wikipedia.org/wiki/Asgard" target="_blank">Further reading for the inquisitive</a>')
 })
