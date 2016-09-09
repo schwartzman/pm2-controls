@@ -50,8 +50,8 @@ textarea {
    ========================================================================== */
 $grey90: #e6e6e6;
 $grey70: #b3b3b3;
-$grey30: #4d4d4d;
 $grey40: #666;
+$grey30: #4d4d4d;
 
 body {
 	background: #1a1a1a;
@@ -75,8 +75,14 @@ body {
 			&.first {
 				clear: left;
 			}
+			&.disabled {
+				color: $grey30;
+				button {
+					border-color: $grey30;
+				}
+			}
 		}
-		h1 {
+		h1, h2 {
 			font-weight: 100;
 		}
 		h2 {
