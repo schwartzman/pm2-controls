@@ -4,11 +4,11 @@ function route(context) {
 	return '/' + endpoint + '/' + param
 }
 
-$('.action').click(function(){
+$('[data-action]').click(function(){
 	$('#output').text('working...')
 })
 
-$('button, .button').click(function() {
+$('[data-action]').click(function() {
 	$('#output').load(route(this))
 })
 
