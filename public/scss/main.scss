@@ -61,6 +61,10 @@ body {
 	}
 }
 
+[data-action] {
+	cursor: pointer;
+}
+
 .inner {
 	max-width: 75%;
 	margin: 80px auto 100px;
@@ -87,7 +91,6 @@ body {
 		}
 		h1 span, h2 {
 			font-weight: 100;
-		    cursor: pointer;
 		    &:hover {
 				color: #66ff66;
 			}
