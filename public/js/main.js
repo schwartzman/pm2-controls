@@ -1,3 +1,6 @@
+// prevent caching on IE
+$.ajaxSetup({ cache: false })
+
 function route(context) {
 	var result = $(context).data('action')
 	var param = $(context).parent().data('module')
