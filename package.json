@@ -11,9 +11,9 @@
     "pm2": "^2.5.0"
   },
   "devDependencies": {
-    "node-sass": "latest",
-    "autoprefixer": "latest",
-    "postcss-cli": "latest"
+    "node-sass": "4",
+    "autoprefixer": "6",
+    "postcss-cli": "3"
   },
   "scripts": {
     "start": "pm2 start pm2.json",
