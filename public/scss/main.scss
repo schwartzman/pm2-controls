@@ -138,7 +138,7 @@ body {
 
 @media only screen and (min-width: 480px) {
 	.inner {
-		max-width: 50%;
+		max-width: (25*3+164)*3px;
 	}
 }
 
