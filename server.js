@@ -1,7 +1,8 @@
 var _ = require('lodash')
 var async = require('async')
 var express = require('express')
-var pm2 = require('pm2')
+var globalModules = require('global-modules')
+var pm2 = require(globalModules+'/pm2')
 var app = express()
 
 function Directive(action, req){
