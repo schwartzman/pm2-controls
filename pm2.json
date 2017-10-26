@@ -1,7 +1,6 @@
 {
 	"name"            : "asgard",
 	"script"          : "server.js",
-	"watch"           : true,
 	"ignore_watch"    : "_logs",
 	"error_file"      : "_logs/asgard-controls-err.log",
 	"out_file"        : "_logs/asgard-controls-out.log",
