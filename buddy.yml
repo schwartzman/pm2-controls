@@ -1,4 +1,4 @@
-- pipeline: "Asgard Controls main"
+- pipeline: "Asgard Controls prime"
   trigger_mode: "ON_EVERY_PUSH"
   ref_name: "master"
   target_site_url: "http://ec2-52-70-3-121.compute-1.amazonaws.com:3000"
