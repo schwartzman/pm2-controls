@@ -10,6 +10,8 @@
     docker_image_tag: "8.9"
     execute_commands:
     - "npm install --only=development"
+    setup_commands:
+    - "npm install -g npm@4" #workaround for busted npm 5
     trigger_condition_paths:
     - "/package.json"
     - "/package-lock.json"
