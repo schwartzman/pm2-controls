@@ -1,4 +1,4 @@
-- pipeline: Asgard Controls prime
+- pipeline: Main
   trigger_mode: ON_EVERY_PUSH
   ref_name: master
   target_site_url: 'http://ec2-52-70-3-121.compute-1.amazonaws.com:3000'
@@ -70,8 +70,10 @@
     env_key: id_rsa
     authentication_mode: ENV_KEY
     commands:
-    - 'cd /srv/asgard-controls && npm install --only-production'
-    - 'cd /srv/asgard-controls && npm prune'
+    - >
+      cd /srv/asgard-controls
+      && npm install --only-production
+      && npm prune
     trigger_condition_paths:
     - '/package.json'
     - '/package-lock.json'
@@ -88,7 +90,10 @@
     trigger_condition: ALWAYS
   - action: Send notification to devops channel
     type: SLACK
-    content: '[#${execution.id}] ${execution.pipeline.name} execution by <${invoker.html_url}|${invoker.name}>'
+    content: >
+      [#${execution.id}] ${project.display_name} _${execution.pipeline.name}_
+      execution by
+      <${invoker.html_url}|${invoker.name}>
     channel: C03KFH753
     channel_name: devops
     attachments:
@@ -104,12 +109,12 @@
       "value": "<${execution.pipeline.html_url}|${execution.pipeline.name}>",
       "short": true
       }, {
-      "title": "Branch",
-      "value": "${execution.branch.name}",
+      "title": "Revision",
+      "value": "<${execution.to_revision.html_url}|${execution.to_revision.short_revision}> ${execution.to_revision.message}",
       "short": true
       }, {
       "title": "Project",
-      "value": "<${project.html_url}|${project.name}>",
+      "value": "<${project.html_url}|${project.display_name}>",
       "short": true
       }]}
     trigger_condition: ALWAYS
@@ -117,7 +122,10 @@
   - action: Send failure notification to devops channel
     type: SLACK
     trigger_time: ON_FAILURE
-    content: '[#${execution.id}] ${execution.pipeline.name} execution by <${invoker.html_url}|${invoker.name}>'
+    content: >
+      [#${execution.id}] ${project.display_name} _${execution.pipeline.name}_
+      execution by
+      <${invoker.html_url}|${invoker.name}>
     channel: C03KFH753
     channel_name: devops
     attachments:
@@ -133,12 +141,12 @@
       "value": "<${execution.pipeline.html_url}|${execution.pipeline.name}>",
       "short": true
       }, {
-      "title": "Branch",
-      "value": "${execution.branch.name}",
+      "title": "Revision",
+      "value": "<${execution.to_revision.html_url}|${execution.to_revision.short_revision}> ${execution.to_revision.message}",
       "short": true
       }, {
       "title": "Project",
-      "value": "<${project.html_url}|${project.name}>",
+      "value": "<${project.html_url}|${project.display_name}>",
       "short": true
       }]}
     trigger_condition: ALWAYS
