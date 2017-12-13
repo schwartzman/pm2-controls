@@ -1,107 +1,145 @@
-- pipeline: "Asgard Controls prime"
-  trigger_mode: "ON_EVERY_PUSH"
-  ref_name: "master"
-  target_site_url: "http://ec2-52-70-3-121.compute-1.amazonaws.com:3000"
+- pipeline: Asgard Controls prime
+  trigger_mode: ON_EVERY_PUSH
+  ref_name: master
+  target_site_url: 'http://ec2-52-70-3-121.compute-1.amazonaws.com:3000'
   no_skip_to_most_recent: true
   actions:
-  - action: "Execute: install development"
-    type: "BUILD"
-    docker_image_name: "library/node"
-    docker_image_tag: "8.9"
+  - action: 'Execute: install development'
+    type: BUILD
+    docker_image_name: 'library/node'
+    docker_image_tag: '8.9'
     execute_commands:
-    - "npm install --only=development"
+    - 'npm install --only=development'
     trigger_condition_paths:
-    - "/package.json"
-    - "/package-lock.json"
-    trigger_condition: "ON_CHANGE_AT_PATH"
-  - action: "Execute: compile sass"
-    type: "BUILD"
-    docker_image_name: "library/node"
-    docker_image_tag: "8.9"
+    - '/package.json'
+    - '/package-lock.json'
+    trigger_condition: ON_CHANGE_AT_PATH
+  - action: 'Execute: compile sass'
+    type: BUILD
+    docker_image_name: 'library/node'
+    docker_image_tag: '8.9'
     execute_commands:
-    - "npm run sass"
+    - 'npm run sass'
     trigger_condition_paths:
-    - "/public/scss/"
-    trigger_condition: "ON_CHANGE_AT_PATH"
-  - action: "SFTP"
-    type: "SFTP"
-    input_type: "BUILD_ARTIFACTS"
-    local_path: "/"
-    remote_path: "/srv/asgard-controls/"
-    login: "${EC2_LOGIN}"
-    host: "${EC2_HOST}"
-    port: "22"
-    env_key: "id_rsa"
-    authentication_mode: "ENV_KEY"
+    - '/public/scss/'
+    trigger_condition: ON_CHANGE_AT_PATH
+  - action: SFTP
+    type: SFTP
+    input_type: BUILD_ARTIFACTS
+    local_path: '/'
+    remote_path: '/srv/asgard-controls/'
+    login: '${EC2_LOGIN}'
+    host: '${EC2_HOST}'
+    port: '22'
+    env_key: id_rsa
+    authentication_mode: ENV_KEY
     deployment_excludes:
-    - "/_logs/"
-    - "/.git/"
-    - ".gitignore"
-    - "*.md"
-    - "/buddy.yml"
-    - "/screenshot.png"
-    - "/node_modules/"
-  - action: "Rsync"
-    type: "RSYNC"
+    - '/_logs/'
+    - '/.git/'
+    - '.gitignore'
+    - '*.md'
+    - '/buddy.yml'
+    - '/screenshot.png'
+    - '/node_modules/'
+  - action: Rsync
+    type: RSYNC
     disabled: true
-    local_path: "/"
-    remote_path: "/srv/asgard-controls/"
-    login: "${EC2_LOGIN}"
-    host: "${EC2_HOST}"
-    port: "22"
-    env_key: "id_rsa"
-    authentication_mode: "ENV_KEY"
+    local_path: '/'
+    remote_path: '/srv/asgard-controls/'
+    login: '${EC2_LOGIN}'
+    host: '${EC2_HOST}'
+    port: '22'
+    env_key: id_rsa
+    authentication_mode: ENV_KEY
     delete_extra_files: true
     compress: true
     deployment_excludes:
-    - "/_logs/"
-    - "/.git/"
-    - ".gitignore"
-    - "*.md"
-    - "/buddy.yml"
-    - "/screenshot.png"
-    - "/node_modules/"
-    trigger_condition: "ALWAYS"
-  - action: "Execute: install production"
-    type: "SSH_COMMAND"
-    login: "${EC2_LOGIN}"
-    host: "${EC2_HOST}"
-    port: "22"
-    env_key: "id_rsa"
-    authentication_mode: "ENV_KEY"
+    - '/_logs/'
+    - '/.git/'
+    - '.gitignore'
+    - '*.md'
+    - '/buddy.yml'
+    - '/screenshot.png'
+    - '/node_modules/'
+    trigger_condition: ALWAYS
+  - action: 'Execute: install production'
+    type: SSH_COMMAND
+    login: '${EC2_LOGIN}'
+    host: '${EC2_HOST}'
+    port: '22'
+    env_key: id_rsa
+    authentication_mode: ENV_KEY
     commands:
-    - "cd /srv/asgard-controls && npm install --only-production"
-    - "cd /srv/asgard-controls && npm prune"
+    - 'cd /srv/asgard-controls && npm install --only-production'
+    - 'cd /srv/asgard-controls && npm prune'
     trigger_condition_paths:
-    - "/package.json"
-    - "/package-lock.json"
-    trigger_condition: "ON_CHANGE_AT_PATH"
-  - action: "Execute: restart"
-    type: "SSH_COMMAND"
-    login: "${EC2_LOGIN}"
-    host: "${EC2_HOST}"
-    port: "22"
-    env_key: "id_rsa"
-    authentication_mode: "ENV_KEY"
+    - '/package.json'
+    - '/package-lock.json'
+    trigger_condition: ON_CHANGE_AT_PATH
+  - action: 'Execute: restart'
+    type: SSH_COMMAND
+    login: '${EC2_LOGIN}'
+    host: '${EC2_HOST}'
+    port: '22'
+    env_key: id_rsa
+    authentication_mode: ENV_KEY
     commands:
-    - "pm2 restart asgard"
-    trigger_condition: "ALWAYS"
-  - action: "Send notification to devops channel"
-    type: "SLACK"
-    content: "[#${execution.id}] ${execution.pipeline.name} execution by <${invoker.html_url}|${invoker.name}>"
-    channel: "C03KFH753"
-    channel_name: "devops"
+    - 'pm2 restart asgard'
+    trigger_condition: ALWAYS
+  - action: Send notification to devops channel
+    type: SLACK
+    content: '[#${execution.id}] ${execution.pipeline.name} execution by <${invoker.html_url}|${invoker.name}>'
+    channel: C03KFH753
+    channel_name: devops
     attachments:
-    - "{\"fallback\":\"${execution.pipeline.name} execution #${execution.id}\",\"color\":\"good\",\"fields\":[{\"title\":\"Successful execution\",\"value\":\"<${execution.html_url}|Execution #${execution.id} ${execution.comment}>\",\"short\":true},{\"title\":\"Pipeline\",\"value\":\"<${execution.pipeline.html_url}|${execution.pipeline.name}>\",\"short\":true},{\"title\":\"Branch\",\"value\":\"${execution.branch.name}\",\"short\":true},{\"title\":\"Project\",\"value\":\"<${project.html_url}|${project.name}>\",\"short\":true}]}"
-    trigger_condition: "ALWAYS"
+    - >
+      {"fallback": "${execution.pipeline.name} execution #${execution.id}",
+      "color": "good",
+      "fields": [{
+      "title": "Successful execution",
+      "value": "<${execution.html_url}|Execution #${execution.id} ${execution.comment}>",
+      "short": true
+      }, {
+      "title": "Pipeline",
+      "value": "<${execution.pipeline.html_url}|${execution.pipeline.name}>",
+      "short": true
+      }, {
+      "title": "Branch",
+      "value": "${execution.branch.name}",
+      "short": true
+      }, {
+      "title": "Project",
+      "value": "<${project.html_url}|${project.name}>",
+      "short": true
+      }]}
+    trigger_condition: ALWAYS
     integration_id: 23127
-  - action: "Send failure notification to devops channel"
-    type: "SLACK"
-    trigger_time: "ON_FAILURE"
-    content: "[#${execution.id}] ${execution.pipeline.name} execution by <${invoker.html_url}|${invoker.name}>"
-    channel: "C03KFH753"
-    channel_name: "devops"
+  - action: Send failure notification to devops channel
+    type: SLACK
+    trigger_time: ON_FAILURE
+    content: '[#${execution.id}] ${execution.pipeline.name} execution by <${invoker.html_url}|${invoker.name}>'
+    channel: C03KFH753
+    channel_name: devops
     attachments:
-    - "{\"fallback\":\"${execution.pipeline.name} execution #${execution.id}\",\"color\":\"danger\",\"fields\":[{\"title\":\"Failed execution\",\"value\":\"<${execution.html_url}|Execution #${execution.id} ${execution.comment}>\",\"short\":true},{\"title\":\"Pipeline\",\"value\":\"<${execution.pipeline.html_url}|${execution.pipeline.name}>\",\"short\":true},{\"title\":\"Branch\",\"value\":\"${execution.branch.name}\",\"short\":true},{\"title\":\"Project\",\"value\":\"<${project.html_url}|${project.name}>\",\"short\":true}]}"
-    trigger_condition: "ALWAYS"
+    - >
+      {"fallback": "${execution.pipeline.name} execution #${execution.id}",
+      "color": "danger",
+      "fields": [{
+      "title": "Failed execution",
+      "value": "<${execution.html_url}|Execution #${execution.id} ${execution.comment}>",
+      "short": true
+      }, {
+      "title": "Pipeline",
+      "value": "<${execution.pipeline.html_url}|${execution.pipeline.name}>",
+      "short": true
+      }, {
+      "title": "Branch",
+      "value": "${execution.branch.name}",
+      "short": true
+      }, {
+      "title": "Project",
+      "value": "<${project.html_url}|${project.name}>",
+      "short": true
+      }]}
+    trigger_condition: ALWAYS
     integration_id: 23127
