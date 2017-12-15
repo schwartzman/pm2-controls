@@ -88,8 +88,6 @@ var loggy = function (req, res, next) {
 
 app.use(loggy, express.static('public'))
 
-app.use(express.static('public'))
-
 nunjucks.configure('views', {
     autoescape: true,
     express: app

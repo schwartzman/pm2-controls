@@ -43,6 +43,7 @@
     - '/buddy.yml'
     - '/screenshot.png'
     - '/node_modules/'
+    - '/public/scss/'
   - action: Rsync
     type: RSYNC
     disabled: true
@@ -63,6 +64,7 @@
     - '/buddy.yml'
     - '/screenshot.png'
     - '/node_modules/'
+    - '/public/scss/'
     trigger_condition: ALWAYS
   - action: 'Execute: install production'
     type: SSH_COMMAND
