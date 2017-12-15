@@ -29,7 +29,7 @@
     type: SFTP
     input_type: BUILD_ARTIFACTS
     local_path: '/'
-    remote_path: '/srv/asgard-controls/'
+    remote_path: '/srv/pm2-controls/'
     login: '${EC2_LOGIN}'
     host: '${EC2_HOST}'
     port: '22'
@@ -47,7 +47,7 @@
     type: RSYNC
     disabled: true
     local_path: '/'
-    remote_path: '/srv/asgard-controls/'
+    remote_path: '/srv/pm2-controls/'
     login: '${EC2_LOGIN}'
     host: '${EC2_HOST}'
     port: '22'
@@ -73,7 +73,7 @@
     authentication_mode: ENV_KEY
     commands:
     - >
-      cd /srv/asgard-controls
+      cd /srv/pm2-controls
       && npm install --only-production
       && npm prune
     trigger_condition_paths:
@@ -88,7 +88,7 @@
     env_key: id_rsa
     authentication_mode: ENV_KEY
     commands:
-    - 'pm2 restart asgard'
+    - 'pm2 restart pm2-controls'
     trigger_condition: ALWAYS
   - action: Send notification to devops channel
     type: SLACK
