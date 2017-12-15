@@ -1,9 +1,9 @@
 {
-	"name"            : "asgard",
+	"name"            : "pm2-controls",
 	"script"          : "server.js",
 	"ignore_watch"    : "_logs",
-	"error_file"      : "_logs/asgard-controls-err.log",
-	"out_file"        : "_logs/asgard-controls-out.log",
+	"error_file"      : "_logs/pm2-controls-err.log",
+	"out_file"        : "_logs/pm2-controls-out.log",
 	"merge_logs"      : true,
 	"log_date_format" : "YYYY-MM-DD HH:mm Z"
 }
